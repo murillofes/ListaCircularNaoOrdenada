@@ -29,46 +29,36 @@ public class PlaylistCircular {
         if (head == null) {
             return false;
         }
+        Musica anterior = head;
+        while (anterior.proxima != head) {
+            anterior = anterior.proxima;
+        }
 
         Musica atual = head;
-        Musica anterior = null;
-
-        do {
+        for (int i = 0; i < tamanho; i++) {
             if (atual.titulo.equals(titulo)) {
                 if (atual == head) {
-                    if (atual.proxima == head) {
-                        head = null;
-                    } else {
-                        Musica ultimo = head;
-                        while (ultimo.proxima != head) {
-                            ultimo = ultimo.proxima;
-                        }
-                        head = head.proxima;
-                        ultimo.proxima = head;
-                    }
-                } else {
-                    anterior.proxima = atual.proxima;
+                    head = (tamanho == 1) ? null : head.proxima;
                 }
+                anterior.proxima = atual.proxima;
                 tamanho--;
                 return true;
             }
             anterior = atual;
             atual = atual.proxima;
-        } while (atual != head);
+        }
+
         return false;
     }
 
     public boolean buscar(String titulo) {
-        if (head == null) {
-            return false;
-        }
         Musica atual = head;
-        do {
+        for (int i = 0; i < tamanho; i++) {
             if (atual.titulo.equals(titulo)) {
                 return true;
             }
             atual = atual.proxima;
-        } while (atual != head);
+        }
         return false;
     }
 
